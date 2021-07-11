@@ -1,0 +1,9 @@
+{
+  "runtimeOptions": {
+    "additionalProbingPaths": [
+      "C:\\Users\\DEVA\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\DEVA\\.nuget\\packages",
+      "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
+    ]
+  }
+}
