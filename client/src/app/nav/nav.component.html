@@ -16,8 +16,9 @@
         </ul>
 
         <!-- Dropdown after login -->
-        <div class="dropdown" ngbDropdown *ngIf="accountService.currentUser$ | async">
-            <a class="dropdown-toggle text-light" ngbDropdownToggle>Welcome user</a>
+        <div class="dropdown" ngbDropdown *ngIf="(accountService.currentUser$ | async) as user">
+            <a class="dropdown-toggle text-light text-decoration-none" ngbDropdownToggle>Welcome {{user.username |
+                titlecase}}</a>
             <div class="dropdown-menu mt-3" ngbDropdownMenu>
                 <a class="dropdown-item" ngbDropdownItem>Edit Profile</a>
                 <div class="dropdown-divider"></div>
@@ -32,7 +33,7 @@
                 placeholder="Username">
             <input name="password" [(ngModel)]="model.password" class="form-control mr-sm-2" type="password"
                 placeholder="Password">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Login</button>
+            <button class="btn btn-success my-2 my-sm-0" type="submit">Login</button>
         </form>
     </div>
 </nav>
