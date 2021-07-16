@@ -1,25 +1,27 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container">
         <a class="navbar-brand" routerLink="/">Dating App</a>
-        <ul class="navbar-nav mr-auto" *ngIf="accountService.currentUser$ | async">
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/members" routerLinkActive='active'>Matches</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/lists" routerLinkActive='active'>Lists</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" routerLink="/messages" routerLinkActive='active'>Messages</a>
-            </li>
+        <ul class="navbar-nav mr-auto">
+            <ng-container *ngIf="accountService.currentUser$ | async">
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/members" routerLinkActive='active'>Matches</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/lists" routerLinkActive='active'>Lists</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" routerLink="/messages" routerLinkActive='active'>Messages</a>
+                </li>
+            </ng-container>
         </ul>
 
         <!-- Dropdown after login -->
         <div class="dropdown" ngbDropdown *ngIf="accountService.currentUser$ | async">
-            <a class="dropdown-toggle text-light" href="#" ngbDropdownToggle>Welcome user</a>
+            <a class="dropdown-toggle text-light" ngbDropdownToggle>Welcome user</a>
             <div class="dropdown-menu mt-3" ngbDropdownMenu>
-                <a href="#" class="dropdown-item" ngbDropdownItem>Edit Profile</a>
+                <a class="dropdown-item" ngbDropdownItem>Edit Profile</a>
                 <div class="dropdown-divider"></div>
-                <a href="#" class="dropdown-item" ngbDropdownItem (click)="logout()">Logout</a>
+                <a class="dropdown-item" ngbDropdownItem (click)="logout()">Logout</a>
             </div>
         </div>
 
