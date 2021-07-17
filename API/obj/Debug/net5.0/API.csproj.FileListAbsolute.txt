@@ -63,3 +63,5 @@ C:\Users\DEVA\Documents\GitHub\dating-app\API\bin\Debug\net5.0\Microsoft.AspNetC
 C:\Users\DEVA\Documents\GitHub\dating-app\API\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.dll
 C:\Users\DEVA\Documents\GitHub\dating-app\API\bin\Debug\net5.0\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\DEVA\Documents\GitHub\dating-app\API\bin\Debug\net5.0\Data\UsersSeedData.json
+C:\Users\DEVA\Documents\GitHub\dating-app\API\bin\Debug\net5.0\AutoMapper.dll
+C:\Users\DEVA\Documents\GitHub\dating-app\API\bin\Debug\net5.0\AutoMapper.Extensions.Microsoft.DependencyInjection.dll

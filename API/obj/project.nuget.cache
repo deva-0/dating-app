@@ -1,9 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "jAANPoBFBpNknc/RpkP9K7RDq1tc5hgiJ/XcYsAZv7z2QZJn5Qw/SC2GkiaTv9A00VDxQBcD+q0IXMuEZWqcNw==",
+  "dgSpecHash": "HFqcD4kHrUyODXBT99VtJc7zEotol268f51dOPLJYnUPklKAJOU7e328Cp5uI0BYEsSCD6fC8CY0bL1jxUUuoQ==",
   "success": true,
   "projectFilePath": "C:\\Users\\DEVA\\Documents\\GitHub\\dating-app\\API\\API.csproj",
   "expectedPackageFiles": [
+    "C:\\Users\\DEVA\\.nuget\\packages\\automapper\\10.1.1\\automapper.10.1.1.nupkg.sha512",
+    "C:\\Users\\DEVA\\.nuget\\packages\\automapper.extensions.microsoft.dependencyinjection\\8.1.1\\automapper.extensions.microsoft.dependencyinjection.8.1.1.nupkg.sha512",
     "C:\\Users\\DEVA\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\DEVA\\.nuget\\packages\\microsoft.aspnetcore.authentication.jwtbearer\\5.0.8\\microsoft.aspnetcore.authentication.jwtbearer.5.0.8.nupkg.sha512",
     "C:\\Users\\DEVA\\.nuget\\packages\\microsoft.csharp\\4.7.0\\microsoft.csharp.4.7.0.nupkg.sha512",
@@ -46,6 +48,7 @@
     "C:\\Users\\DEVA\\.nuget\\packages\\system.diagnostics.diagnosticsource\\5.0.1\\system.diagnostics.diagnosticsource.5.0.1.nupkg.sha512",
     "C:\\Users\\DEVA\\.nuget\\packages\\system.identitymodel.tokens.jwt\\6.11.1\\system.identitymodel.tokens.jwt.6.11.1.nupkg.sha512",
     "C:\\Users\\DEVA\\.nuget\\packages\\system.memory\\4.5.3\\system.memory.4.5.3.nupkg.sha512",
+    "C:\\Users\\DEVA\\.nuget\\packages\\system.reflection.emit\\4.7.0\\system.reflection.emit.4.7.0.nupkg.sha512",
     "C:\\Users\\DEVA\\.nuget\\packages\\system.security.cryptography.cng\\4.5.0\\system.security.cryptography.cng.4.5.0.nupkg.sha512"
   ],
   "logs": []
