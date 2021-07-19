@@ -14,7 +14,9 @@ namespace API.Extensions
         {
             // JWT 
             services.AddScoped<ITokenService, TokenService>();
+
             services.AddScoped<IUserRepository, UserRepository>();
+            
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             // For SQLite db connection (_config=appsettings.Development.json)
             services.AddDbContext<DataContext>(options =>
