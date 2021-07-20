@@ -70,7 +70,7 @@
                 <li [ngbNavItem]="2">
                     <a ngbNavLink>Edit Photos</a>
                     <ng-template ngbNavContent>
-                        <p>Photo edit will go here</p>
+                        <app-photo-editor [member]="member"></app-photo-editor>
                     </ng-template>
                 </li>
             </ul>
