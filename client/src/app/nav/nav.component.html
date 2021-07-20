@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     <div class="container">
-        <a class="navbar-brand" routerLink="/">Dating App</a>
+        <a class="navbar-brand mr-4" routerLink="/">Dating App</a>
         <ul class="navbar-nav mr-auto">
             <ng-container *ngIf="accountService.currentUser$ | async">
                 <li class="nav-item">
@@ -12,14 +12,13 @@
                 <li class="nav-item">
                     <a class="nav-link" routerLink="/messages" routerLinkActive='active'>Messages</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" routerLink="/errors" routerLinkActive='active'>Errors</a>
-                </li>
+
             </ng-container>
         </ul>
 
         <!-- Dropdown after login -->
         <div class="dropdown" ngbDropdown *ngIf="(accountService.currentUser$ | async) as user">
+            <img class="rounded-circle mr-2" src="{{user.photoUrl}}" alt="{{user.username}}">
             <a class="dropdown-toggle text-light text-decoration-none" ngbDropdownToggle>Welcome {{user.username |
                 titlecase}}</a>
             <div class="dropdown-menu mt-3" ngbDropdownMenu>
