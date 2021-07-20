@@ -23,7 +23,7 @@
             <a class="dropdown-toggle text-light text-decoration-none" ngbDropdownToggle>Welcome {{user.username |
                 titlecase}}</a>
             <div class="dropdown-menu mt-3" ngbDropdownMenu>
-                <a class="dropdown-item" ngbDropdownItem>Edit Profile</a>
+                <a routerLink="/member/edit" class="dropdown-item" ngbDropdownItem>Edit Profile</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" ngbDropdownItem (click)="logout()">Logout</a>
             </div>
