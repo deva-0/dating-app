@@ -1,11 +1,10 @@
 using System;
 using System.Collections.Generic;
-using API.Extensions;
 
 namespace API.Entities
 {
     /// <summary>
-    /// Entity which represents default app user.
+    ///     Entity which represents default app user.
     /// </summary>
     public class AppUser
     {

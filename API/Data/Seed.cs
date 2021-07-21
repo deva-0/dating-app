@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.Json;
@@ -13,7 +14,7 @@ namespace API.Data
         public static async Task SeedUsers(DataContext context)
         {
             if (await context.Users.AnyAsync()) return;
-            var userData = await System.IO.File.ReadAllTextAsync("Data/UsersSeedData.json");
+            var userData = await File.ReadAllTextAsync("Data/UsersSeedData.json");
             var users = JsonSerializer.Deserialize<List<AppUser>>(userData);
             foreach (var user in users)
             {
@@ -25,7 +26,8 @@ namespace API.Data
 
                 context.Users.Add(user);
             }
-            await context.SaveChangesAsync(); 
+
+            await context.SaveChangesAsync();
         }
     }
 }

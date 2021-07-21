@@ -15,6 +15,7 @@ namespace API.Controllers
     {
         private readonly DataContext _context;
         private readonly ITokenService _tokenService;
+
         public AccountController(DataContext context, ITokenService tokenService)
         {
             _tokenService = tokenService;
@@ -22,7 +23,7 @@ namespace API.Controllers
         }
 
         /// <summary>
-        /// Handles new user registration
+        ///     Handles new user registration
         /// </summary>
         /// <param name="registerDto">Object which contains new username and password</param>
         /// <returns>Newly created user</returns>
@@ -45,12 +46,12 @@ namespace API.Controllers
             return new UserDto
             {
                 Username = user.UserName,
-                Token = _tokenService.CreateToken(user),
+                Token = _tokenService.CreateToken(user)
             };
         }
 
         /// <summary>
-        /// Handles user login
+        ///     Handles user login
         /// </summary>
         /// <param name="loginDto">Object which contains login info (username and password)</param>
         /// <returns>Logged in user</returns>
@@ -67,10 +68,9 @@ namespace API.Controllers
 
             var computedHash = hmac.ComputeHash(Encoding.UTF8.GetBytes(loginDto.Password));
 
-            for (int i = 0; i < computedHash.Length; i++)
-            {
-                if (computedHash[i] != user.PasswordHash[i]) return Unauthorized("Invalid password");
-            }
+            for (var i = 0; i < computedHash.Length; i++)
+                if (computedHash[i] != user.PasswordHash[i])
+                    return Unauthorized("Invalid password");
 
             return new UserDto
             {
@@ -81,7 +81,7 @@ namespace API.Controllers
         }
 
         /// <summary>
-        /// Checks if username is already taken
+        ///     Checks if username is already taken
         /// </summary>
         /// <param name="username">Username to check</param>
         /// <returns>Returns true if user exists returns false if it doesn't</returns>

@@ -1,8 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using API.Data;
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
@@ -11,16 +9,15 @@ using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
     [Authorize]
     public class UsersController : BaseApiController
     {
-        private readonly IUserRepository _userRepository;
         private readonly IMapper _mapper;
         private readonly IPhotoService _photoService;
+        private readonly IUserRepository _userRepository;
 
         public UsersController(
             IUserRepository userRepository,
@@ -71,17 +68,12 @@ namespace API.Controllers
                 PublicId = result.PublicId
             };
 
-            if (user.Photos.Count == 0)
-            {
-                photo.IsMain = true;
-            }
+            if (user.Photos.Count == 0) photo.IsMain = true;
 
             user.Photos.Add(photo);
 
             if (await _userRepository.SaveAllAsync())
-            {
-                return CreatedAtRoute("GetUser", new { username = user.UserName }, _mapper.Map<PhotoDto>(photo));
-            }
+                return CreatedAtRoute("GetUser", new {username = user.UserName}, _mapper.Map<PhotoDto>(photo));
 
             return BadRequest("Problem adding photo");
         }
@@ -124,6 +116,5 @@ namespace API.Controllers
 
             return BadRequest("Failed to delete photo");
         }
-
     }
 }
