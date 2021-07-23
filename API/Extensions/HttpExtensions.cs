@@ -6,6 +6,14 @@ namespace API.Extensions
 {
     public static class HttpExtensions
     {
+        /// <summary>
+        /// Attaches pagination info as a HTTP header to response. 
+        /// </summary>
+        /// <param name="response">Outgoing side of an individual HTTP request.</param>
+        /// <param name="currentPage">Current page number</param>
+        /// <param name="itemsPerPage">Number of items on single page.</param>
+        /// <param name="totalItems">Number of  all items to retrieve.</param>
+        /// <param name="totalPages">Count of all pages</param>
         public static void AddPaginationHeader(this HttpResponse response, int currentPage,
             int itemsPerPage, int totalItems, int totalPages)
         {

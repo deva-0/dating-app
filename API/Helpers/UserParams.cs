@@ -1,5 +1,8 @@
 namespace API.Helpers
 {
+    /// <summary>
+    /// Represents parameters with info about pagination passed from query string
+    /// </summary>
     public class UserParams
     {
         private const int MaxPageSize = 50;

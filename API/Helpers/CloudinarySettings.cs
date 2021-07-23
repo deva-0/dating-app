@@ -1,5 +1,8 @@
 namespace API.Helpers
 {
+    /// <summary>
+    /// Settings for cloudinary.com API, image hosting service. 
+    /// </summary>
     public class CloudinarySettings
     {
         public string CloudName { get; set; }

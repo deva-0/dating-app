@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace API.Data
 {
     /// <summary>
-    /// Creates abstraction over database abstraction (DbContext), provides customized methods  
+    /// Creates abstraction over database abstraction (DbContext) and provides customized methods  
     /// </summary>
     public class UserRepository : IUserRepository
     {

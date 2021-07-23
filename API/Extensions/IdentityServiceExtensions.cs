@@ -6,6 +6,9 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace API.Extensions
 {
+    /// <summary>
+    /// Provides authentication via JSON web tokens service. 
+    /// </summary>
     public static class IdentityServiceExtensions
     {
         public static IServiceCollection AddIdentityServices(this IServiceCollection services, IConfiguration config)
