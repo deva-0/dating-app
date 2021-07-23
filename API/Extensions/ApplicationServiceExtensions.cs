@@ -8,6 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 
 namespace API.Extensions
 {
+    /// <summary>
+    /// Separates arbitrary services from required ones inside Startup class. Has only aesthetic value. 
+    /// </summary>
     public static class ApplicationServiceExtensions
     {
         public static IServiceCollection AddApplicationServices(
@@ -22,7 +25,7 @@ namespace API.Extensions
             services.AddScoped<IPhotoService, PhotoService>();
             // Abstraction over DbContext 
             services.AddScoped<IUserRepository, UserRepository>();
-
+            // For AutoMapper
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
             // For SQLite db connection (_config=appsettings.Development.json)
             services.AddDbContext<DataContext>(options =>

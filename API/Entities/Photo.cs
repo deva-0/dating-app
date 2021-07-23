@@ -2,6 +2,9 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace API.Entities
 {
+    /// <summary>
+    /// Represents user photos.
+    /// </summary>
     [Table("Photos")]
     public class Photo
     {

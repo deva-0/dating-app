@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using API.DTOs;
 using API.Entities;
 using API.Extensions;
+using API.Helpers;
 using API.Interfaces;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
@@ -12,6 +13,9 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
 {
+    /// <summary>
+    /// Controller responsible for user related actions
+    /// </summary>
     [Authorize]
     public class UsersController : BaseApiController
     {
@@ -29,19 +33,37 @@ namespace API.Controllers
             _userRepository = userRepository;
         }
 
+        /// <summary>
+        /// Retrieves paginated members. 
+        /// </summary>
+        /// <param name="userParams">Represents custom parameters from query</param>
+        /// <returns>Paginated members and http status code 200</returns>
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<MemberDto>>> GetUsers([FromQuery] UserParams userParams)
         {
-            var users = await _userRepository.GetMembersAsync();
+            var users = await _userRepository.GetMembersAsync(userParams);
+            Response.AddPaginationHeader(users.CurrentPage, users.PageSize, users.TotalCount, users.TotalPages);
+
             return Ok(users);
         }
 
+        /// <summary>
+        /// Retrieves member matching specified username.
+        /// </summary>
+        /// <param name="username">Username of required user</param>
+        /// <returns>Specified member DTO </returns>
         [HttpGet("{username}", Name = "GetUser")]
         public async Task<ActionResult<MemberDto>> GetUser(string username)
         {
             return await _userRepository.GetMemberAsync(username);
         }
 
+
+        /// <summary>
+        /// Updates member info in database.
+        /// </summary>
+        /// <param name="memberUpdateDto">Update DTO containing member info</param>
+        /// <returns>204 No Content if successful otherwise 400 Bad Request</returns>
         [HttpPut]
         public async Task<ActionResult> UpdateUser(MemberUpdateDto memberUpdateDto)
         {
@@ -55,6 +77,11 @@ namespace API.Controllers
             return BadRequest("Failed to update user");
         }
 
+        /// <summary>
+        /// Adds photo to currently authenticated user photo gallery.
+        /// </summary>
+        /// <param name="file">Represents a image sent with the HttpRequest</param>
+        /// <returns>Route to uploaded image, if unsuccessful 400 Bad Request</returns>
         [HttpPost("add-photo")]
         public async Task<ActionResult<PhotoDto>> AddPhoto(IFormFile file)
         {
@@ -73,11 +100,17 @@ namespace API.Controllers
             user.Photos.Add(photo);
 
             if (await _userRepository.SaveAllAsync())
-                return CreatedAtRoute("GetUser", new {username = user.UserName}, _mapper.Map<PhotoDto>(photo));
+                return CreatedAtRoute("GetUser", new { username = user.UserName }, _mapper.Map<PhotoDto>(photo));
 
             return BadRequest("Problem adding photo");
         }
 
+
+        /// <summary>
+        /// Sets authenticated members photo as a main photo.  
+        /// </summary>
+        /// <param name="photoId">ID of photo inside members gallery</param>
+        /// <returns>204 No Content if successfull, 400 Bad Request if it's already a main photo or there were other problems</returns>
         [HttpPut("set-main-photo/{photoId}")]
         public async Task<ActionResult> SetMainPhoto(int photoId)
         {
@@ -95,6 +128,11 @@ namespace API.Controllers
         }
 
 
+        /// <summary>
+        /// Deletes specified photo from authenticated member gallery.
+        /// </summary>
+        /// <param name="photoId">ID of photo inside members gallery</param>
+        /// <returns>400 Bad Request if photo is main photo or when there were other problems with deletion</returns>
         [HttpDelete("delete-photo/{photoId}")]
         public async Task<ActionResult> DeletePhoto(int photoId)
         {

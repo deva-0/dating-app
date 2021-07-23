@@ -12,6 +12,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
+    /// <summary>
+    /// Controller responsible for user registration/login
+    /// </summary>
     public class AccountController : BaseApiController
     {
         private readonly DataContext _context;
@@ -26,10 +29,10 @@ namespace API.Controllers
         }
 
         /// <summary>
-        ///     Handles new user registration
+        /// Handles new user registration
         /// </summary>
-        /// <param name="registerDto">Object which contains new username and password</param>
-        /// <returns>Newly created user</returns>
+        /// <param name="registerDto">DTO with register info</param>
+        /// <returns>DTO of new user</returns>
         [HttpPost("register")]
         public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
@@ -55,10 +58,10 @@ namespace API.Controllers
         }
 
         /// <summary>
-        ///     Handles user login
+        /// Handles user login
         /// </summary>
-        /// <param name="loginDto">Object which contains login info (username and password)</param>
-        /// <returns>Logged in user</returns>
+        /// <param name="loginDto">DTO with login info</param>
+        /// <returns>Created DTO of user</returns>
         [HttpPost("login")]
         public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
@@ -86,10 +89,10 @@ namespace API.Controllers
         }
 
         /// <summary>
-        ///     Checks if username is already taken
+        /// Checks if username is already taken
         /// </summary>
         /// <param name="username">Username to check</param>
-        /// <returns>Returns true if user exists returns false if it doesn't</returns>
+        /// <returns>True if user exists, false if it doesn't</returns>
         private async Task<bool> UserExists(string username)
         {
             return await _context.Users.AnyAsync(x => x.UserName == username.ToLower());
