@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 namespace API.Data
 {
     /// <summary>
-    /// Entity Framework Core session
+    ///     Entity Framework Core session
     /// </summary>
     public class DataContext : DbContext
     {

@@ -9,6 +9,9 @@ using Microsoft.Extensions.Logging;
 
 namespace API.Middleware
 {
+    /// <summary>
+    ///     Intercepts errors and converts them into JSON format for client
+    /// </summary>
     public class ExceptionMiddleware
     {
         private readonly IHostEnvironment _env;

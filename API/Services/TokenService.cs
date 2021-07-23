@@ -10,6 +10,9 @@ using Microsoft.IdentityModel.Tokens;
 
 namespace API.Services
 {
+    /// <summary>
+    ///     Represents JWT authentication service. Provides global authentication of users.
+    /// </summary>
     public class TokenService : ITokenService
     {
         private readonly SymmetricSecurityKey _key;
@@ -19,6 +22,12 @@ namespace API.Services
             _key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(config["TokenKey"]));
         }
 
+
+        /// <summary>
+        ///     Creates new JWT for given user object.
+        /// </summary>
+        /// <param name="user">User object retrieved from database</param>
+        /// <returns>New token bound to user</returns>
         public string CreateToken(AppUser user)
         {
             var claims = new List<Claim>

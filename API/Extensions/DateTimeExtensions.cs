@@ -5,7 +5,7 @@ namespace API.Extensions
     public static class DateTimeExtensions
     {
         /// <summary>
-        /// Calculates age.
+        ///     Calculates age.
         /// </summary>
         /// <param name="dob">Date of birth</param>
         /// <returns>Current age</returns>

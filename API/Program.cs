@@ -14,6 +14,9 @@ namespace API
         public static async Task Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
+
+
+            // migrates database and seeds 'fake' data from UsersSeedData.json file inside it
             using var scope = host.Services.CreateScope();
             var services = scope.ServiceProvider;
             try

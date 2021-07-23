@@ -8,10 +8,17 @@ using Microsoft.Extensions.Options;
 
 namespace API.Services
 {
+    /// <summary>
+    ///     Provides connection to cloudinary.com API and serves photos from it.
+    /// </summary>
     public class PhotoService : IPhotoService
     {
         private readonly Cloudinary _cloudinary;
 
+        /// <summary>
+        ///     Initializes photo service.
+        /// </summary>
+        /// <param name="config">Cloudinary required API Config (secret, key)</param>
         public PhotoService(IOptions<CloudinarySettings> config)
         {
             var acc = new Account
@@ -24,6 +31,11 @@ namespace API.Services
             _cloudinary = new Cloudinary(acc);
         }
 
+        /// <summary>
+        ///     Uploads photo to Cloudinary
+        /// </summary>
+        /// <param name="file">Represents a image sent with the HttpRequest</param>
+        /// <returns>Parsed response after upload of the image resource</returns>
         public async Task<ImageUploadResult> AddPhotoAsync(IFormFile file)
         {
             var uploadResult = new ImageUploadResult();
@@ -42,6 +54,11 @@ namespace API.Services
             return uploadResult;
         }
 
+        /// <summary>
+        ///     Deletes photo from cloudinary.com
+        /// </summary>
+        /// <param name="publicId">Public id of hosted photo</param>
+        /// <returns>Parsed result of asset deletion</returns>
         public async Task<DeletionResult> DeletePhotoAsync(string publicId)
         {
             var deleteParmas = new DeletionParams(publicId);

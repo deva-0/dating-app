@@ -1,7 +1,7 @@
 namespace API.Helpers
 {
     /// <summary>
-    /// Settings for cloudinary.com API, image hosting service. 
+    ///     Settings for cloudinary.com API, image hosting service.
     /// </summary>
     public class CloudinarySettings
     {

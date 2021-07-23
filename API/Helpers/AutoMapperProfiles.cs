@@ -6,9 +6,8 @@ using AutoMapper;
 
 namespace API.Helpers
 {
-
     /// <summary>
-    /// Provides profiles for auto mapper settings
+    ///     Provides profiles for auto mapper settings
     /// </summary>
     public class AutoMapperProfiles : Profile
     {

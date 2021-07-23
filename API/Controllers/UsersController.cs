@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers
 {
     /// <summary>
-    /// Controller responsible for user related actions
+    ///     Controller responsible for user related actions
     /// </summary>
     [Authorize]
     public class UsersController : BaseApiController
@@ -34,7 +34,7 @@ namespace API.Controllers
         }
 
         /// <summary>
-        /// Retrieves paginated members. 
+        ///     Retrieves paginated members.
         /// </summary>
         /// <param name="userParams">Represents custom parameters from query</param>
         /// <returns>Paginated members and http status code 200</returns>
@@ -48,7 +48,7 @@ namespace API.Controllers
         }
 
         /// <summary>
-        /// Retrieves member matching specified username.
+        ///     Retrieves member matching specified username.
         /// </summary>
         /// <param name="username">Username of required user</param>
         /// <returns>Specified member DTO </returns>
@@ -60,7 +60,7 @@ namespace API.Controllers
 
 
         /// <summary>
-        /// Updates member info in database.
+        ///     Updates member info in database.
         /// </summary>
         /// <param name="memberUpdateDto">Update DTO containing member info</param>
         /// <returns>204 No Content if successful otherwise 400 Bad Request</returns>
@@ -78,7 +78,7 @@ namespace API.Controllers
         }
 
         /// <summary>
-        /// Adds photo to currently authenticated user photo gallery.
+        ///     Adds photo to currently authenticated user photo gallery.
         /// </summary>
         /// <param name="file">Represents a image sent with the HttpRequest</param>
         /// <returns>Route to uploaded image, if unsuccessful 400 Bad Request</returns>
@@ -100,14 +100,14 @@ namespace API.Controllers
             user.Photos.Add(photo);
 
             if (await _userRepository.SaveAllAsync())
-                return CreatedAtRoute("GetUser", new { username = user.UserName }, _mapper.Map<PhotoDto>(photo));
+                return CreatedAtRoute("GetUser", new {username = user.UserName}, _mapper.Map<PhotoDto>(photo));
 
             return BadRequest("Problem adding photo");
         }
 
 
         /// <summary>
-        /// Sets authenticated members photo as a main photo.  
+        ///     Sets authenticated members photo as a main photo.
         /// </summary>
         /// <param name="photoId">ID of photo inside members gallery</param>
         /// <returns>204 No Content if successfull, 400 Bad Request if it's already a main photo or there were other problems</returns>
@@ -129,7 +129,7 @@ namespace API.Controllers
 
 
         /// <summary>
-        /// Deletes specified photo from authenticated member gallery.
+        ///     Deletes specified photo from authenticated member gallery.
         /// </summary>
         /// <param name="photoId">ID of photo inside members gallery</param>
         /// <returns>400 Bad Request if photo is main photo or when there were other problems with deletion</returns>

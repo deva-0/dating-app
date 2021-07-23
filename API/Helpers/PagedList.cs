@@ -7,14 +7,14 @@ using Microsoft.EntityFrameworkCore;
 namespace API.Helpers
 {
     /// <summary>
-    /// Represents list that keeps record of total pages, page size, current page number
+    ///     Represents list that keeps record of total pages, page size, current page number
     /// </summary>
     public class PagedList<T> : List<T>
     {
         public PagedList(IEnumerable<T> items, int count, int pageNumber, int pageSize)
         {
             CurrentPage = pageNumber;
-            TotalPages = (int)Math.Ceiling(count / (double)pageSize);
+            TotalPages = (int) Math.Ceiling(count / (double) pageSize);
             PageSize = pageSize;
             TotalCount = count;
             AddRange(items);
@@ -26,7 +26,7 @@ namespace API.Helpers
         public int TotalCount { get; set; }
 
         /// <summary>
-        /// Static method of creating paged list.
+        ///     Static method of creating paged list.
         /// </summary>
         /// <param name="source">Database query</param>
         /// <param name="pageNumber">Current page number</param>
@@ -38,6 +38,5 @@ namespace API.Helpers
             var items = await source.Skip((pageNumber - 1) * pageSize).Take(pageSize).ToListAsync();
             return new PagedList<T>(items, count, pageNumber, pageSize);
         }
-
     }
 }

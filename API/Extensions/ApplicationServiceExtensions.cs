@@ -9,7 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 namespace API.Extensions
 {
     /// <summary>
-    /// Separates arbitrary services from required ones inside Startup class. Has only aesthetic value. 
+    ///     Separates arbitrary services from required ones inside Startup class. Has only aesthetic value.
     /// </summary>
     public static class ApplicationServiceExtensions
     {

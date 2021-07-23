@@ -7,7 +7,7 @@ using Microsoft.IdentityModel.Tokens;
 namespace API.Extensions
 {
     /// <summary>
-    /// Provides authentication via JSON web tokens service. 
+    ///     Provides authentication via JSON web tokens service.
     /// </summary>
     public static class IdentityServiceExtensions
     {

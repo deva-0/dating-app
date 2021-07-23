@@ -7,7 +7,7 @@ namespace API.Extensions
     public static class HttpExtensions
     {
         /// <summary>
-        /// Attaches pagination info as a HTTP header to response. 
+        ///     Attaches pagination info as a HTTP header to response.
         /// </summary>
         /// <param name="response">Outgoing side of an individual HTTP request.</param>
         /// <param name="currentPage">Current page number</param>

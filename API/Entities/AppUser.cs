@@ -4,7 +4,7 @@ using System.Collections.Generic;
 namespace API.Entities
 {
     /// <summary>
-    /// Represents normal app user.
+    ///     Represents normal app user.
     /// </summary>
     public class AppUser
     {

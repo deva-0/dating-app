@@ -1,7 +1,7 @@
 namespace API.Errors
 {
     /// <summary>
-    /// Custom exception.
+    ///     Custom exception.
     /// </summary>
     public class ApiException
     {

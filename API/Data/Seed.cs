@@ -10,12 +10,12 @@ using Microsoft.EntityFrameworkCore;
 namespace API.Data
 {
     /// <summary>
-    /// Allows to read 'fake' data from UserSeedData.json file and inserts it into database
+    ///     Allows to read 'fake' data from UserSeedData.json file and inserts it into database
     /// </summary>
     public class Seed
     {
         /// <summary>
-        /// Performs main task of the class
+        ///     Performs main task of the class
         /// </summary>
         /// <param name="context">Database session</param>
         public static async Task SeedUsers(DataContext context)

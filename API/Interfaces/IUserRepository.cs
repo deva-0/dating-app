@@ -7,7 +7,7 @@ using API.Helpers;
 namespace API.Interfaces
 {
     /// <summary>
-    /// Represents abstraction over database abstraction (DbContext) and provides customized methods
+    ///     Represents abstraction over database abstraction (DbContext) and provides customized methods
     /// </summary>
     public interface IUserRepository
     {

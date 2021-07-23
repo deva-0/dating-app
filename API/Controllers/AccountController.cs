@@ -13,13 +13,13 @@ using Microsoft.EntityFrameworkCore;
 namespace API.Controllers
 {
     /// <summary>
-    /// Controller responsible for user registration/login
+    ///     Controller responsible for user registration/login
     /// </summary>
     public class AccountController : BaseApiController
     {
         private readonly DataContext _context;
-        private readonly ITokenService _tokenService;
         private readonly IMapper _mapper;
+        private readonly ITokenService _tokenService;
 
         public AccountController(DataContext context, ITokenService tokenService, IMapper mapper)
         {
@@ -29,7 +29,7 @@ namespace API.Controllers
         }
 
         /// <summary>
-        /// Handles new user registration
+        ///     Handles new user registration
         /// </summary>
         /// <param name="registerDto">DTO with register info</param>
         /// <returns>DTO of new user</returns>
@@ -58,7 +58,7 @@ namespace API.Controllers
         }
 
         /// <summary>
-        /// Handles user login
+        ///     Handles user login
         /// </summary>
         /// <param name="loginDto">DTO with login info</param>
         /// <returns>Created DTO of user</returns>
@@ -89,7 +89,7 @@ namespace API.Controllers
         }
 
         /// <summary>
-        /// Checks if username is already taken
+        ///     Checks if username is already taken
         /// </summary>
         /// <param name="username">Username to check</param>
         /// <returns>True if user exists, false if it doesn't</returns>

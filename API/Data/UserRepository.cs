@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore;
 namespace API.Data
 {
     /// <summary>
-    /// Creates abstraction over database abstraction (DbContext) and provides customized methods  
+    ///     Creates abstraction over database abstraction (DbContext) and provides customized methods
     /// </summary>
     public class UserRepository : IUserRepository
     {
@@ -20,7 +20,7 @@ namespace API.Data
         private readonly IMapper _mapper;
 
         /// <summary>
-        /// Initializes a new UserRepository with given database session.
+        ///     Initializes a new UserRepository with given database session.
         /// </summary>
         /// <param name="context">DI Database session</param>
         /// <param name="mapper">DI AutoMapper interface</param>
@@ -32,7 +32,7 @@ namespace API.Data
 
 
         /// <summary>
-        /// Retrieves member with passed username from database.
+        ///     Retrieves member with passed username from database.
         /// </summary>
         /// <param name="username">Username of member to retrieve</param>
         /// <returns>Data transfer object of a member</returns>
@@ -45,7 +45,7 @@ namespace API.Data
         }
 
         /// <summary>
-        /// Creates new PagedList with retrieved members.
+        ///     Creates new PagedList with retrieved members.
         /// </summary>
         /// <param name="userParams">Object with custom parameters from request query string</param>
         /// <returns>New PagedList with filtered amount of members</returns>
@@ -58,7 +58,7 @@ namespace API.Data
         }
 
         /// <summary>
-        /// Retrieves user with specified id from database.
+        ///     Retrieves user with specified id from database.
         /// </summary>
         /// <param name="id">Id of user to retrieve</param>
         /// <returns>User object</returns>
@@ -68,7 +68,7 @@ namespace API.Data
         }
 
         /// <summary>
-        /// Retrieves user with passed username from database.
+        ///     Retrieves user with passed username from database.
         /// </summary>
         /// <param name="username">Username of user to retrieve</param>
         /// <returns>User object</returns>
@@ -80,7 +80,7 @@ namespace API.Data
         }
 
         /// <summary>
-        /// Retrieves all users with from database.
+        ///     Retrieves all users with from database.
         /// </summary>
         /// <returns>List of all users</returns>
         public async Task<IEnumerable<AppUser>> GetUsersAsync()
@@ -91,7 +91,7 @@ namespace API.Data
         }
 
         /// <summary>
-        /// Saves all changes to database asynchronously
+        ///     Saves all changes to database asynchronously
         /// </summary>
         /// <returns>True if there were changes, False if nothing changed</returns>
         public async Task<bool> SaveAllAsync()
@@ -101,7 +101,7 @@ namespace API.Data
 
 
         /// <summary>
-        /// Updates information about user in database.
+        ///     Updates information about user in database.
         /// </summary>
         /// <param name="user">User object to update</param>
         public void Update(AppUser user)
