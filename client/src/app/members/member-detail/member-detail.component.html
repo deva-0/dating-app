@@ -17,7 +17,7 @@
             {{ member.age }}
           </p>
         </div>
-        <div>
+        <div *ngIf="member.lastActive">
           <strong>Last Active: </strong>
           <p>
             {{ member.lastActive | timeago }}
