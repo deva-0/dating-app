@@ -5,6 +5,7 @@ using API.Data;
 using API.Helpers;
 using API.Interfaces;
 using API.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +28,8 @@ namespace API.Extensions
             services.AddScoped<ITokenService, TokenService>();
             // Cloudinary photo service
             services.AddScoped<IPhotoService, PhotoService>();
+            // Updates user last active date 
+            services.AddScoped<LogUserActivity>();
             // Abstraction over DbContext 
             services.AddScoped<IUserRepository, UserRepository>();
             // For AutoMapper
@@ -38,9 +41,9 @@ namespace API.Extensions
             });
 
             // Register the Swagger generator, defining 1 or more Swagger documents
-            services.AddSwaggerGen(c =>
+            services.AddSwaggerGen(setup =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo
+                setup.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
                     Title = "Dating App API",
@@ -58,10 +61,35 @@ namespace API.Extensions
                         Url = new System.Uri("https://github.com/deva297/dating-app/blob/main/LICENSE"),
                     }
                 });
+
+
+                // Authenticate with JWT Token
+                var jwtSecurityScheme = new OpenApiSecurityScheme
+                {
+                    Scheme = "bearer",
+                    BearerFormat = "JWT",
+                    Name = "JWT Authentication",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Description = "Put **_ONLY_** your JWT Bearer token on textbox below!",
+
+                    Reference = new OpenApiReference
+                    {
+                        Id = JwtBearerDefaults.AuthenticationScheme,
+                        Type = ReferenceType.SecurityScheme
+                    }
+                };
+
+                setup.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
+                setup.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    { jwtSecurityScheme, Array.Empty<string>() }
+                });
+
                 // Set the comments path for the Swagger JSON and UI.
                 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
-                c.IncludeXmlComments(xmlPath);
+                setup.IncludeXmlComments(xmlPath);
             });
 
             return services;

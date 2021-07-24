@@ -1,3 +1,84 @@
+<div class="text-center mt-3">
+  <h2>Your matches - {{ pagination?.totalItems }} found</h2>
+</div>
+<div class="container mt-3">
+  <form
+    #form="ngForm"
+    class="form-inline mb-3"
+    (ngSubmit)="loadMembers()"
+    autocomplete="off"
+  >
+    <div class="form-group">
+      <label><strong>Age from: </strong></label>
+      <input
+        type="number"
+        class="form-control ml-1"
+        style="width: 70px"
+        name="minAge"
+        [(ngModel)]="userParams.minAge"
+      />
+    </div>
+
+    <div class="form-group px-2">
+      <label><strong>Age to:</strong></label>
+      <input
+        type="number"
+        class="form-control ml-1"
+        style="width: 70px"
+        name="maxAge"
+        [(ngModel)]="userParams.maxAge"
+      />
+    </div>
+
+    <div class="form-group px-2">
+      <label><strong>Show: </strong></label>
+      <select
+        name="gender"
+        style="width: 8rem"
+        [(ngModel)]="userParams.gender"
+        class="form-control ml-1"
+      >
+        <option *ngFor="let gender of genderList" [value]="gender.value">
+          {{ gender.display }}
+        </option>
+      </select>
+    </div>
+
+    <button class="btn btn-success ml-1" type="submit">Apply Filters</button>
+    <button (click)="resetFilters()" class="btn btn-warning ml-1" type="submit">
+      Reset Filters
+    </button>
+
+    <div class="col">
+      <div
+        class="btn-group btn-group-toggle ml-5"
+        ngbRadioGroup
+        name="radioOrder"
+        [(ngModel)]="userParams.orderBy"
+      >
+        <label ngbButtonLabel class="btn-primary">
+          <input
+            type="radio"
+            ngbButton
+            (click)="loadMembers()"
+            value="lastActive"
+          />
+          Last Active
+        </label>
+        <label ngbButtonLabel class="btn-primary">
+          <input
+            type="radio"
+            ngbButton
+            (click)="loadMembers()"
+            value="created"
+          />
+          Newest Members
+        </label>
+      </div>
+    </div>
+  </form>
+</div>
+
 <div class="row">
   <div *ngFor="let member of members" class="col-sm-6 col-md-2">
     <app-member-card [member]="member"></app-member-card>

@@ -5,7 +5,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxGalleryModule } from '@kolkov/ngx-gallery';
 import { FileUploadModule } from 'ng2-file-upload';
-
+import { TimeagoModule } from 'ngx-timeago';
 
 @NgModule({
   declarations: [],
@@ -17,14 +17,15 @@ import { FileUploadModule } from 'ng2-file-upload';
       positionClass: 'toast-bottom-right',
     }),
     NgxGalleryModule,
-    FileUploadModule
-
+    FileUploadModule,
+    TimeagoModule.forRoot(),
   ],
   exports: [
     NgbModule,
     ToastrModule,
     NgxGalleryModule,
-    FileUploadModule
-  ]
+    FileUploadModule,
+    TimeagoModule,
+  ],
 })
-export class SharedModule { }
+export class SharedModule {}
