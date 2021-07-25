@@ -1,20 +1,27 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NgxGalleryAnimation, NgxGalleryImage, NgxGalleryOptions } from '@kolkov/ngx-gallery';
+import {
+  NgxGalleryAnimation,
+  NgxGalleryImage,
+  NgxGalleryOptions,
+} from '@kolkov/ngx-gallery';
 import { Member } from 'src/app/_models/member';
 import { MembersService } from 'src/app/_services/members.service';
 
 @Component({
   selector: 'app-member-detail',
   templateUrl: './member-detail.component.html',
-  styleUrls: ['./member-detail.component.css']
+  styleUrls: ['./member-detail.component.css'],
 })
 export class MemberDetailComponent implements OnInit {
   member: Member = {} as Member;
   galleryOptions: NgxGalleryOptions[] = [];
   galleryImages: NgxGalleryImage[] = [];
 
-  constructor(private memberService: MembersService, private route: ActivatedRoute) { }
+  constructor(
+    private memberService: MembersService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
     this.loadMember();
@@ -26,9 +33,9 @@ export class MemberDetailComponent implements OnInit {
         imagePercent: 100,
         thumbnailsColumns: 4,
         imageAnimation: NgxGalleryAnimation.Slide,
-        preview: false
-      }
-    ]
+        preview: false,
+      },
+    ];
   }
 
   getImages(): NgxGalleryImage[] {
@@ -37,17 +44,19 @@ export class MemberDetailComponent implements OnInit {
       imageUrls.push({
         small: photo?.url,
         medium: photo?.url,
-        big: photo?.url
-      })
+        big: photo?.url,
+      });
     }
 
     return imageUrls;
   }
 
   loadMember() {
-    this.memberService.getMember(this.route.snapshot.paramMap.get('username') as string).subscribe(member => {
-      this.member = member;
-      this.galleryImages = this.getImages();
-    })
+    this.memberService
+      .getMember(this.route.snapshot.paramMap.get('username') as string)
+      .subscribe((member) => {
+        this.member = member;
+        this.galleryImages = this.getImages();
+      });
   }
 }

@@ -2,42 +2,22 @@
   <h2>Your matches - {{ pagination?.totalItems }} found</h2>
 </div>
 <div class="container mt-3">
-  <form
-    #form="ngForm"
-    class="form-inline mb-3"
-    (ngSubmit)="loadMembers()"
-    autocomplete="off"
-  >
+  <form #form="ngForm" class="form-inline mb-3" (ngSubmit)="loadMembers()" autocomplete="off">
     <div class="form-group">
       <label><strong>Age from: </strong></label>
-      <input
-        type="number"
-        class="form-control ml-1"
-        style="width: 70px"
-        name="minAge"
-        [(ngModel)]="userParams.minAge"
-      />
+      <input type="number" class="form-control ml-1" style="width: 70px" name="minAge"
+        [(ngModel)]="userParams.minAge" />
     </div>
 
     <div class="form-group px-2">
       <label><strong>Age to:</strong></label>
-      <input
-        type="number"
-        class="form-control ml-1"
-        style="width: 70px"
-        name="maxAge"
-        [(ngModel)]="userParams.maxAge"
-      />
+      <input type="number" class="form-control ml-1" style="width: 70px" name="maxAge"
+        [(ngModel)]="userParams.maxAge" />
     </div>
 
     <div class="form-group px-2">
       <label><strong>Show: </strong></label>
-      <select
-        name="gender"
-        style="width: 8rem"
-        [(ngModel)]="userParams.gender"
-        class="form-control ml-1"
-      >
+      <select name="gender" style="width: 8rem" [(ngModel)]="userParams.gender" class="form-control ml-1">
         <option *ngFor="let gender of genderList" [value]="gender.value">
           {{ gender.display }}
         </option>
@@ -50,28 +30,14 @@
     </button>
 
     <div class="col">
-      <div
-        class="btn-group btn-group-toggle ml-5"
-        ngbRadioGroup
-        name="radioOrder"
-        [(ngModel)]="userParams.orderBy"
-      >
+      <div class="btn-group btn-group-toggle ml-5" (change)="loadMembers()" ngbRadioGroup name="radioOrder"
+        [(ngModel)]="userParams.orderBy">
         <label ngbButtonLabel class="btn-primary">
-          <input
-            type="radio"
-            ngbButton
-            (click)="loadMembers()"
-            value="lastActive"
-          />
+          <input type="radio" ngbButton value="lastActive" />
           Last Active
         </label>
         <label ngbButtonLabel class="btn-primary">
-          <input
-            type="radio"
-            ngbButton
-            (click)="loadMembers()"
-            value="created"
-          />
+          <input type="radio" ngbButton value="created" />
           Newest Members
         </label>
       </div>
@@ -86,14 +52,7 @@
 </div>
 
 <div class="d-flex justify-content-center" *ngIf="pagination">
-  <ngb-pagination
-    [collectionSize]="pagination.totalItems"
-    [pageSize]="pagination.itemsPerPage"
-    [(page)]="pagination.currentPage"
-    (pageChange)="pageChanged($event)"
-    [maxSize]="5"
-    [rotate]="true"
-    [ellipses]="false"
-    [boundaryLinks]="true"
-  ></ngb-pagination>
+  <ngb-pagination [collectionSize]="pagination.totalItems" [pageSize]="pagination.itemsPerPage"
+    [(page)]="pagination.currentPage" (pageChange)="pageChanged($event)" [maxSize]="5" [rotate]="true"
+    [ellipses]="false" [boundaryLinks]="true"></ngb-pagination>
 </div>

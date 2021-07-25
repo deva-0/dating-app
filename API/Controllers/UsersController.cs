@@ -14,7 +14,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace API.Controllers
 {
     /// <summary>
-    ///     Controller responsible for user related actions
+    ///     Responsible for user account related actions
     /// </summary>
     [Authorize]
     public class UsersController : BaseApiController
@@ -65,7 +65,7 @@ namespace API.Controllers
 
 
         /// <summary>
-        ///     Updates member info in database.
+        ///     Updates members info in database.
         /// </summary>
         /// <param name="memberUpdateDto">Update DTO containing member info</param>
         /// <returns>204 No Content if successful otherwise 400 Bad Request</returns>
