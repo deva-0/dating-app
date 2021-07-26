@@ -73,8 +73,6 @@ namespace API.Data
                 userParams.PageNumber,
                 userParams.PageSize
             );
-
-
         }
 
         /// <summary>

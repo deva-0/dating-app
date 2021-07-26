@@ -14,9 +14,10 @@ namespace API.Controllers
     [Authorize]
     public class MessagesController : BaseApiController
     {
-        private readonly IUserRepository _userRepository;
-        private readonly IMessageRepository _messageRepository;
         private readonly IMapper _mapper;
+        private readonly IMessageRepository _messageRepository;
+        private readonly IUserRepository _userRepository;
+
         public MessagesController(IUserRepository userRepository, IMessageRepository messageRepository, IMapper mapper)
         {
             _mapper = mapper;

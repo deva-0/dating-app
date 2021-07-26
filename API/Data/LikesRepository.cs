@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using API.DTOs;
@@ -13,6 +12,7 @@ namespace API.Data
     public class LikesRepository : ILikesRepository
     {
         private readonly DataContext _context;
+
         public LikesRepository(DataContext context)
         {
             _context = context;

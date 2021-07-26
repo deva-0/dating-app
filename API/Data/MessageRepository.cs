@@ -16,6 +16,7 @@ namespace API.Data
     {
         private readonly DataContext _context;
         private readonly IMapper _mapper;
+
         public MessageRepository(DataContext context, IMapper mapper)
         {
             _mapper = mapper;
@@ -36,6 +37,7 @@ namespace API.Data
         {
             return await _context.Messages.FindAsync(id);
         }
+
         public async Task<PagedList<MessageDto>> GetMessagesForUser(MessageParams messageParams)
         {
             var query = _context.Messages
@@ -60,9 +62,9 @@ namespace API.Data
                 .Include(u => u.Sender).ThenInclude(p => p.Photos)
                 .Include(u => u.Recipient).ThenInclude(p => p.Photos)
                 .Where(m => m.Recipient.UserName == currentUsername
-                        && m.Sender.UserName == recipientUsername
-                        || m.Recipient.UserName == recipientUsername
-                        && m.Sender.UserName == currentUsername
+                            && m.Sender.UserName == recipientUsername
+                            || m.Recipient.UserName == recipientUsername
+                            && m.Sender.UserName == currentUsername
                 )
                 .OrderBy(m => m.MessageSent)
                 .ToListAsync();
@@ -72,10 +74,7 @@ namespace API.Data
 
             if (unreadMessages.Any())
             {
-                foreach (var message in unreadMessages)
-                {
-                    message.DateRead = DateTime.Now;
-                }
+                foreach (var message in unreadMessages) message.DateRead = DateTime.Now;
 
                 await _context.SaveChangesAsync();
             }

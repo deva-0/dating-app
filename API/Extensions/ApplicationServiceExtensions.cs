@@ -46,17 +46,17 @@ namespace API.Extensions
                     Version = "v1",
                     Title = "Dating App API",
                     Description = "Example of dating app API",
-                    TermsOfService = new System.Uri("https://github.com/deva297/dating-app/blob/main/LICENSE"),
+                    TermsOfService = new Uri("https://github.com/deva297/dating-app/blob/main/LICENSE"),
                     Contact = new OpenApiContact
                     {
                         Name = "Adrian Zaręba",
                         Email = "dev.adrianzareba@gmail.com",
-                        Url = new System.Uri("https://github.com/deva297/dating-app")
+                        Url = new Uri("https://github.com/deva297/dating-app")
                     },
                     License = new OpenApiLicense
                     {
                         Name = "MIT",
-                        Url = new System.Uri("https://github.com/deva297/dating-app/blob/main/LICENSE"),
+                        Url = new Uri("https://github.com/deva297/dating-app/blob/main/LICENSE")
                     }
                 });
 
@@ -81,7 +81,7 @@ namespace API.Extensions
                 setup.AddSecurityDefinition(jwtSecurityScheme.Reference.Id, jwtSecurityScheme);
                 setup.AddSecurityRequirement(new OpenApiSecurityRequirement
                 {
-                    { jwtSecurityScheme, Array.Empty<string>() }
+                    {jwtSecurityScheme, Array.Empty<string>()}
                 });
 
                 // Set the comments path for the Swagger JSON and UI.

@@ -15,12 +15,12 @@ namespace API.Data
         public DbSet<AppUser> Users { get; set; }
 
         /// <summary>
-        /// Provides likes between users
+        ///     Provides likes between users
         /// </summary>
         public DbSet<UserLike> Likes { get; set; }
 
         /// <summary>
-        /// Provides messages between users
+        ///     Provides messages between users
         /// </summary>
 
         public DbSet<Message> Messages { get; set; }
@@ -29,7 +29,7 @@ namespace API.Data
         {
             base.OnModelCreating(builder);
             builder.Entity<UserLike>()
-                .HasKey(k => new { k.SourceUserId, k.LikedUserId });
+                .HasKey(k => new {k.SourceUserId, k.LikedUserId});
 
             builder.Entity<UserLike>()
                 .HasOne(s => s.SourceUser)
@@ -52,7 +52,6 @@ namespace API.Data
                 .HasOne(u => u.Sender)
                 .WithMany(m => m.MessagesSent)
                 .OnDelete(DeleteBehavior.Restrict);
-            
         }
     }
 }
