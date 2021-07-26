@@ -51,15 +51,29 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessagesForUser([FromQuery] MessageParams messageParams)
+        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessagesForUser(
+            [FromQuery] MessageParams messageParams)
         {
             messageParams.Username = User.GetUsername();
 
             var messages = await _messageRepository.GetMessagesForUser(messageParams);
 
-            Response.AddPaginationHeader(messages.CurrentPage, messages.PageSize, messages.TotalCount, messages.TotalPages);
+            Response.AddPaginationHeader(
+                messages.CurrentPage,
+                messages.PageSize,
+                messages.TotalCount,
+                messages.TotalPages);
 
             return messages;
+        }
+
+
+        [HttpGet("thread/{username}")]
+        public async Task<ActionResult<IEnumerable<MessageDto>>> GetMessageThread(string username)
+        {
+            var currentUsername = User.GetUsername();
+
+            return Ok(await _messageRepository.GetMessageThread(currentUsername, username));
         }
     }
 }
