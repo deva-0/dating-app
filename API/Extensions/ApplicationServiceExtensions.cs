@@ -30,6 +30,7 @@ namespace API.Extensions
             services.AddScoped<LogUserActivity>(); // Updates user last active date 
             services.AddScoped<IUserRepository, UserRepository>(); // For handling user accounts 
             services.AddScoped<ILikesRepository, LikesRepository>(); // For 'likes' functionality
+            services.AddScoped<IMessageRepository, MessageRepository>(); // for user messages 
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly); // For AutoMapper
             // For SQLite db connection (_config=appsettings.Development.json)
             services.AddDbContext<DataContext>(options =>
