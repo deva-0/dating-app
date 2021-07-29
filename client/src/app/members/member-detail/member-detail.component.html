@@ -1,4 +1,4 @@
-<div class="row" *ngIf="member">
+<div class="row">
   <div class="col-4">
     <div class="card">
       <img src="{{ member.photoUrl || './assets/user.png' }}" alt="{{ member.knownAs }}"
@@ -30,26 +30,27 @@
       <div class="card-footer">
         <div class="btn-group d-flex">
           <button class="btn btn-primary">Like</button>
-          <button class="btn btn-success">Message</button>
+          <button class="btn btn-success" (click)="selectTab(4)">Message</button>
         </div>
       </div>
     </div>
   </div>
   <div class="col-8">
-    <ul ngbNav #nav="ngbNav" class="nav-tabs member-tabset">
+    <ul ngbNav #nav="ngbNav" (shown)="onTabShown()" (activeIdChange)="updateActiveTabId($event)"
+      class="nav-tabs member-tabset">
       <li [ngbNavItem]="1">
         <a ngbNavLink>About {{ member.knownAs }}</a>
         <ng-template ngbNavContent>
-          <h4>Description</h4>
+          <h4>Description </h4>
           <p>{{ member.introduction }}</p>
           <h4>Looking for</h4>
           <p>{{ member.lookingFor }}</p>
         </ng-template>
       </li>
       <li [ngbNavItem]="2">
-        <a ngbNavLink>Interests</a>
+        <a ngbNavLink>Interests </a>
         <ng-template ngbNavContent>
-          <h4>Interests</h4>
+          <h4>Interests </h4>
           <p>{{ member.interests }}</p>
         </ng-template>
       </li>
@@ -63,7 +64,7 @@
       <li [ngbNavItem]="4">
         <a ngbNavLink>Messages</a>
         <ng-template ngbNavContent>
-          <p>Messages will go here</p>
+          <app-member-messages [username]="member.username" [messages]="messages"></app-member-messages>
         </ng-template>
       </li>
     </ul>
