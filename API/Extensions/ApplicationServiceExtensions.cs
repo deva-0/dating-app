@@ -5,6 +5,7 @@ using API.Data;
 using API.Helpers;
 using API.Interfaces;
 using API.Services;
+using API.SingalR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -22,6 +23,7 @@ namespace API.Extensions
             this IServiceCollection services,
             IConfiguration config)
         {
+            services.AddSingleton<PresenceTracker>(); // For activity status 
             // Pass API token and secret to cloudinary settings
             services.Configure<CloudinarySettings>(config.GetSection("CloudinarySettings"));
 

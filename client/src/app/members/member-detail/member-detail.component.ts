@@ -14,6 +14,7 @@ import {
 import { Member } from 'src/app/_models/member';
 import { Message } from 'src/app/_models/message';
 import { MessageService } from 'src/app/_services/message.service';
+import { PresenceService } from 'src/app/_services/presence.service';
 
 @Component({
   selector: 'app-member-detail',
@@ -30,6 +31,7 @@ export class MemberDetailComponent implements OnInit, AfterViewInit {
   activeTabId: number = 1;
 
   constructor(
+    public presence: PresenceService,
     private route: ActivatedRoute,
     private messageService: MessageService,
     private changeDetector: ChangeDetectorRef
