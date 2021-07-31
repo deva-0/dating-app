@@ -1,1 +1,22 @@
-<p>admin-panel works!</p>
+<h2>Admin Panel</h2>
+<div class="tab-panel">
+  <ul ngbNav #nav="ngbNav" class=" nav-tabs member-tabset">
+    <li [ngbNavItem]="1" *appHasRole='["Admin"]'>
+      <a ngbNavLink>User management</a>
+      <ng-template ngbNavContent>
+        <div class="container">
+          <app-user-management></app-user-management>
+        </div>
+      </ng-template>
+    </li>
+    <li [ngbNavItem]="2">
+      <a ngbNavLink *appHasRole='["Admin", "Moderator"]'>Photo management</a>
+      <ng-template ngbNavContent>
+        <div class="container">
+          <app-photo-management></app-photo-management>
+        </div>
+      </ng-template>
+    </li>
+  </ul>
+  <div [ngbNavOutlet]="nav" class="mt-2"></div>
+</div>

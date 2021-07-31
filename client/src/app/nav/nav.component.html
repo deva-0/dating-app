@@ -12,7 +12,7 @@
         <li class="nav-item">
           <a class="nav-link" routerLink="/messages" routerLinkActive="active">Messages</a>
         </li>
-        <li class="nav-item">
+        <li *appHasRole='["Admin", "Moderator"]' class="nav-item">
           <a class="nav-link" routerLink="/admin" routerLinkActive="active">Admin</a>
         </li>
       </ng-container>
@@ -22,7 +22,7 @@
     <div class="dropdown" ngbDropdown *ngIf="accountService.currentUser$ | async as user">
       <img class="rounded-circle mr-2" src="{{ user.photoUrl || './assets/user.png' }}" alt="{{ user.username }}" />
       <a class="dropdown-toggle text-light text-decoration-none" ngbDropdownToggle>Welcome
-        {{ user.knownAs | titlecase }}</a>
+        {{ user.knownAs || user.username | titlecase }}</a>
       <div class="dropdown-menu mt-3" ngbDropdownMenu>
         <a routerLink="/member/edit" class="dropdown-item" ngbDropdownItem>Edit Profile</a>
         <div class="dropdown-divider"></div>
