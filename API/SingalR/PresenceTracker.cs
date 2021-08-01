@@ -35,7 +35,7 @@ namespace API.SingalR
                 if (!OnlineUsers.ContainsKey(username)) return Task.CompletedTask;
 
                 OnlineUsers[username].Remove(connectionId);
-                
+
                 if (OnlineUsers[username].Count == 0)
                 {
                     OnlineUsers.Remove(username);
@@ -53,6 +53,17 @@ namespace API.SingalR
                 onlineUsers = OnlineUsers.OrderBy(k => k.Key).Select(k => k.Key).ToArray();
             }
             return Task.FromResult(onlineUsers);
+        }
+
+        public Task<List<string>> GetConnectionsForUser(string username)
+        {
+            List<string> connectionIds;
+            lock (OnlineUsers)
+            {
+                connectionIds = OnlineUsers.GetValueOrDefault(username);
+            }
+
+            return Task.FromResult(connectionIds);
         }
     }
 }

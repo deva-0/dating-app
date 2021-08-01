@@ -31,7 +31,6 @@ namespace API.SingalR
 
             var currentUsers = await _tracker.GetOnlineUsers();
             await Clients.All.SendAsync("GetOnlineUsers", currentUsers);
-
             await base.OnDisconnectedAsync(exception);
         }
     }

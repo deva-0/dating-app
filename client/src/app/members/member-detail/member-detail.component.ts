@@ -2,17 +2,21 @@ import {
   AfterViewInit,
   ChangeDetectorRef,
   Component,
+  OnDestroy,
   OnInit,
   ViewChild,
 } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
   NgxGalleryAnimation,
   NgxGalleryImage,
   NgxGalleryOptions,
 } from '@kolkov/ngx-gallery';
+import { take } from 'rxjs/operators';
 import { Member } from 'src/app/_models/member';
 import { Message } from 'src/app/_models/message';
+import { User } from 'src/app/_models/user';
+import { AccountService } from 'src/app/_services/account.service';
 import { MessageService } from 'src/app/_services/message.service';
 import { PresenceService } from 'src/app/_services/presence.service';
 
@@ -21,7 +25,7 @@ import { PresenceService } from 'src/app/_services/presence.service';
   templateUrl: './member-detail.component.html',
   styleUrls: ['./member-detail.component.css'],
 })
-export class MemberDetailComponent implements OnInit, AfterViewInit {
+export class MemberDetailComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('nav') nav;
 
   member: Member = {} as Member;
@@ -29,13 +33,21 @@ export class MemberDetailComponent implements OnInit, AfterViewInit {
   galleryImages: NgxGalleryImage[] = [];
   messages: Message[] = [];
   activeTabId: number = 1;
+  user: User;
 
   constructor(
     public presence: PresenceService,
     private route: ActivatedRoute,
     private messageService: MessageService,
-    private changeDetector: ChangeDetectorRef
-  ) {}
+    private changeDetector: ChangeDetectorRef,
+    private accountService: AccountService,
+    private router: Router
+  ) {
+    this.accountService.currentUser$
+      .pipe(take(1))
+      .subscribe((user) => (this.user = user));
+    this.router.routeReuseStrategy.shouldReuseRoute = () => false;
+  }
 
   ngOnInit(): void {
     this.route.data.subscribe((data) => {
@@ -93,7 +105,13 @@ export class MemberDetailComponent implements OnInit, AfterViewInit {
 
   onTabShown() {
     if (this.activeTabId === 4 && this.messages.length === 0) {
-      this.loadMessages();
+      this.messageService.createHubConnection(this.user, this.member.username);
+    } else {
+      this.messageService.stopHubConnection();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.messageService.stopHubConnection();
   }
 }
