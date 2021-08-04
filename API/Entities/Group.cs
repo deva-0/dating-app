@@ -14,8 +14,8 @@ namespace API.Entities
             Name = name;
         }
 
-        [Key]
-        public string Name { get; set; }
+        [Key] public string Name { get; set; }
+
         public ICollection<Connection> Connections { get; set; } = new List<Connection>();
     }
 }

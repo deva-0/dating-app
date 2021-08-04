@@ -54,9 +54,9 @@ namespace API.Data
         public async Task<Message> GetMessage(int id)
         {
             return await _context.Messages
-            .Include(u => u.Sender)
-            .Include(u => u.Recipient)
-            .SingleOrDefaultAsync(x => x.Id == id);
+                .Include(u => u.Sender)
+                .Include(u => u.Recipient)
+                .SingleOrDefaultAsync(x => x.Id == id);
         }
 
         public async Task<Group> GetMessageGroup(string groupName)
@@ -73,9 +73,11 @@ namespace API.Data
 
             query = messageParams.Container switch
             {
-                "Inbox" => query.Where(u => u.RecipientUsername == messageParams.Username && u.RecipientDeleted == false),
+                "Inbox" => query.Where(
+                    u => u.RecipientUsername == messageParams.Username && u.RecipientDeleted == false),
                 "Outbox" => query.Where(u => u.SenderUsername == messageParams.Username && u.SenderDeleted == false),
-                _ => query.Where(u => u.RecipientUsername == messageParams.Username && u.RecipientDeleted == false && u.DateRead == null)
+                _ => query.Where(u =>
+                    u.RecipientUsername == messageParams.Username && u.RecipientDeleted == false && u.DateRead == null)
             };
 
             return await PagedList<MessageDto>.CreateAsync(query, messageParams.PageNumber, messageParams.PageSize);
@@ -85,7 +87,7 @@ namespace API.Data
         {
             var messages = await _context.Messages
                 .Where(m => m.Recipient.UserName == currentUsername && m.RecipientDeleted == false
-                            && m.Sender.UserName == recipientUsername
+                                                                    && m.Sender.UserName == recipientUsername
                             || m.Recipient.UserName == recipientUsername
                             && m.Sender.UserName == currentUsername && m.SenderDeleted == false
                 )
@@ -97,9 +99,8 @@ namespace API.Data
                 .ToList();
 
             if (unreadMessages.Any())
-            {
-                foreach (var message in unreadMessages) message.DateRead = DateTime.UtcNow;
-            }
+                foreach (var message in unreadMessages)
+                    message.DateRead = DateTime.UtcNow;
 
             return messages;
         }

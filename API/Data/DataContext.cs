@@ -31,6 +31,7 @@ namespace API.Data
         ///     Provides messages between users
         /// </summary>
         public DbSet<Message> Messages { get; set; }
+
         public DbSet<Group> Groups { get; set; }
         public DbSet<Connection> Connections { get; set; }
 
@@ -52,7 +53,7 @@ namespace API.Data
 
 
             builder.Entity<UserLike>()
-                .HasKey(k => new { k.SourceUserId, k.LikedUserId });
+                .HasKey(k => new {k.SourceUserId, k.LikedUserId});
 
             builder.Entity<UserLike>()
                 .HasOne(s => s.SourceUser)
@@ -79,42 +80,38 @@ namespace API.Data
             builder.ApplyUtcDateTimeConverter();
         }
     }
+
     public static class UtcDateAnnotation
     {
-        private const String IsUtcAnnotation = "IsUtc";
+        private const string IsUtcAnnotation = "IsUtc";
+
         private static readonly ValueConverter<DateTime, DateTime> UtcConverter =
-          new ValueConverter<DateTime, DateTime>(v => v, v => DateTime.SpecifyKind(v, DateTimeKind.Utc));
+            new(v => v, v => DateTime.SpecifyKind(v, DateTimeKind.Utc));
 
         private static readonly ValueConverter<DateTime?, DateTime?> UtcNullableConverter =
-          new ValueConverter<DateTime?, DateTime?>(v => v, v => v == null ? v : DateTime.SpecifyKind(v.Value, DateTimeKind.Utc));
+            new(v => v, v => v == null ? v : DateTime.SpecifyKind(v.Value, DateTimeKind.Utc));
 
-        public static PropertyBuilder<TProperty> IsUtc<TProperty>(this PropertyBuilder<TProperty> builder, Boolean isUtc = true) =>
-          builder.HasAnnotation(IsUtcAnnotation, isUtc);
+        public static PropertyBuilder<TProperty> IsUtc<TProperty>(this PropertyBuilder<TProperty> builder,
+            bool isUtc = true)
+        {
+            return builder.HasAnnotation(IsUtcAnnotation, isUtc);
+        }
 
-        public static Boolean IsUtc(this IMutableProperty property) =>
-          ((Boolean?)property.FindAnnotation(IsUtcAnnotation)?.Value) ?? true;
+        public static bool IsUtc(this IMutableProperty property)
+        {
+            return (bool?) property.FindAnnotation(IsUtcAnnotation)?.Value ?? true;
+        }
 
         public static void ApplyUtcDateTimeConverter(this ModelBuilder builder)
         {
             foreach (var entityType in builder.Model.GetEntityTypes())
+            foreach (var property in entityType.GetProperties())
             {
-                foreach (var property in entityType.GetProperties())
-                {
-                    if (!property.IsUtc())
-                    {
-                        continue;
-                    }
+                if (!property.IsUtc()) continue;
 
-                    if (property.ClrType == typeof(DateTime))
-                    {
-                        property.SetValueConverter(UtcConverter);
-                    }
+                if (property.ClrType == typeof(DateTime)) property.SetValueConverter(UtcConverter);
 
-                    if (property.ClrType == typeof(DateTime?))
-                    {
-                        property.SetValueConverter(UtcNullableConverter);
-                    }
-                }
+                if (property.ClrType == typeof(DateTime?)) property.SetValueConverter(UtcNullableConverter);
             }
         }
     }

@@ -22,15 +22,12 @@ namespace API.Data
 
             var roles = new List<AppRole>
             {
-                new AppRole{Name = "Member"},
-                new AppRole{Name = "Admin"},
-                new AppRole{Name = "Moderator"},
+                new() {Name = "Member"},
+                new() {Name = "Admin"},
+                new() {Name = "Moderator"}
             };
 
-            foreach (var role in roles)
-            {
-                await roleManager.CreateAsync(role);
-            }
+            foreach (var role in roles) await roleManager.CreateAsync(role);
 
             foreach (var user in users)
             {
@@ -45,7 +42,7 @@ namespace API.Data
             };
 
             await userManager.CreateAsync(admin, "StrongPa$$w0rd");
-            await userManager.AddToRolesAsync(admin, new string[] { "Admin", "Moderator" });
+            await userManager.AddToRolesAsync(admin, new[] {"Admin", "Moderator"});
         }
     }
 }

@@ -19,9 +19,10 @@ namespace API.Controllers
     [Authorize]
     public class UsersController : BaseApiController
     {
+        private readonly IMapper _mapper;
         private readonly IPhotoService _photoService;
         private readonly IUnitOfWork _unitOfWork;
-        private readonly IMapper _mapper;
+
         public UsersController(IUnitOfWork unitOfWork, IMapper mapper, IPhotoService photoService)
         {
             _unitOfWork = unitOfWork;
@@ -101,7 +102,7 @@ namespace API.Controllers
             user.Photos.Add(photo);
 
             if (await _unitOfWork.Complete())
-                return CreatedAtRoute("GetUser", new { username = user.UserName }, _mapper.Map<PhotoDto>(photo));
+                return CreatedAtRoute("GetUser", new {username = user.UserName}, _mapper.Map<PhotoDto>(photo));
 
             return BadRequest("Problem adding photo");
         }

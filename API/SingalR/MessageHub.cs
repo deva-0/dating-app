@@ -12,14 +12,15 @@ namespace API.SingalR
 {
     public class MessageHub : Hub
     {
-        private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
         private readonly IHubContext<PresenceHub> _presenceHub;
         private readonly PresenceTracker _tracker;
+        private readonly IUnitOfWork _unitOfWork;
+
         public MessageHub(IUnitOfWork unitOfWork,
-                          IMapper mapper,
-                          IHubContext<PresenceHub> presenceHub,
-                          PresenceTracker tracker)
+            IMapper mapper,
+            IHubContext<PresenceHub> presenceHub,
+            PresenceTracker tracker)
         {
             _presenceHub = presenceHub;
             _tracker = tracker;
@@ -78,22 +79,19 @@ namespace API.SingalR
             {
                 var connections = await _tracker.GetConnectionsForUser(recipient.UserName);
                 if (connections != null)
-                {
                     await _presenceHub.Clients.Clients(connections).SendAsync("NewMessageReceived", new
                     {
                         username = sender.UserName,
                         knownAs = sender.KnownAs
                     });
-                }
             }
 
             _unitOfWork.MessageRepository.AddMessage(message);
 
             if (await _unitOfWork.Complete())
-            {
                 await Clients.Group(groupName).SendAsync("NewMessage", _mapper.Map<MessageDto>(message));
-            }
         }
+
         private async Task<Group> AddToGroup(string groupName)
         {
             var group = await _unitOfWork.MessageRepository.GetMessageGroup(groupName);
@@ -121,6 +119,7 @@ namespace API.SingalR
 
             throw new HubException("Failed to remove from group");
         }
+
         private string GetGroupName(string caller, string other)
         {
             var stringCompare = string.CompareOrdinal(caller, other) < 0;

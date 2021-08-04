@@ -4,16 +4,15 @@ using System.Threading.Tasks;
 
 namespace API.SingalR
 {
-
     // TODO: Replace with redis
     public class PresenceTracker
     {
         private static readonly Dictionary<string, List<string>> OnlineUsers =
-            new Dictionary<string, List<string>>();
+            new();
 
         public Task<bool> UserConnected(string username, string connectionId)
         {
-            bool isOnline = false;
+            var isOnline = false;
             lock (OnlineUsers)
             {
                 if (OnlineUsers.ContainsKey(username))
@@ -22,7 +21,7 @@ namespace API.SingalR
                 }
                 else
                 {
-                    OnlineUsers.Add(username, new List<string> { connectionId });
+                    OnlineUsers.Add(username, new List<string> {connectionId});
                     isOnline = true;
                 }
             }
@@ -32,7 +31,7 @@ namespace API.SingalR
 
         public Task<bool> UserDisconnected(string username, string connectionId)
         {
-            bool isOffline = false;
+            var isOffline = false;
             lock (OnlineUsers)
             {
                 if (!OnlineUsers.ContainsKey(username)) return Task.FromResult(isOffline);
@@ -56,6 +55,7 @@ namespace API.SingalR
             {
                 onlineUsers = OnlineUsers.OrderBy(k => k.Key).Select(k => k.Key).ToArray();
             }
+
             return Task.FromResult(onlineUsers);
         }
 

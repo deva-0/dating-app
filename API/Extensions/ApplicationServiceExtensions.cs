@@ -30,7 +30,7 @@ namespace API.Extensions
             services.AddScoped<ITokenService, TokenService>(); // JWT 
             services.AddScoped<IPhotoService, PhotoService>(); // Cloudinary photo service
             services.AddScoped<LogUserActivity>(); // Updates user last active date
-            services.AddScoped<IUnitOfWork, UnitOfWork>(); 
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly); // For AutoMapper
             // For SQLite db connection (_config=appsettings.Development.json)
             services.AddDbContext<DataContext>(options =>
