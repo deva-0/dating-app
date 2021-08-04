@@ -3,6 +3,7 @@
 }
 
 .chat {
+  height: 60vh;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -16,4 +17,12 @@
 
 .rounded-circle {
   max-height: 3.5rem;
+}
+:root {
+  color-scheme: dark;
+}
+
+.container {
+  padding: 25px;
+  height: 2000px;
 }
