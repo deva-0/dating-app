@@ -109,16 +109,6 @@ namespace API.Data
         }
 
         /// <summary>
-        ///     Saves all changes to database asynchronously
-        /// </summary>
-        /// <returns>True if there were changes, False if nothing changed</returns>
-        public async Task<bool> SaveAllAsync()
-        {
-            return await _context.SaveChangesAsync() > 0;
-        }
-
-
-        /// <summary>
         ///     Updates information about user in database.
         /// </summary>
         /// <param name="user">User object to update</param>
