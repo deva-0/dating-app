@@ -36,13 +36,18 @@ namespace API.Data
         ///     Retrieves member with passed username from database.
         /// </summary>
         /// <param name="username">Username of member to retrieve</param>
+        /// <param name="isCurrentUser"></param>
         /// <returns>Data transfer object of a member</returns>
-        public async Task<MemberDto> GetMemberAsync(string username)
+        public async Task<MemberDto> GetMemberAsync(string username, bool? isCurrentUser)
         {
-            return await _context.Users
+            var query = _context.Users
                 .Where(x => x.UserName == username)
                 .ProjectTo<MemberDto>(_mapper.ConfigurationProvider)
-                .SingleOrDefaultAsync();
+                .AsQueryable();
+
+            if (isCurrentUser.GetValueOrDefault()) query = query.IgnoreQueryFilters();
+
+            return await query.FirstOrDefaultAsync();
         }
 
         /// <summary>
@@ -94,7 +99,17 @@ namespace API.Data
         {
             return await _context.Users
                 .Include(p => p.Photos)
+                .IgnoreQueryFilters()
                 .SingleOrDefaultAsync(x => x.UserName == username);
+        }
+
+        public async Task<AppUser> GetUserByPhotoIdAsync(int photoId)
+        {
+            return await _context.Users
+                .Include(p => p.Photos)
+                .IgnoreQueryFilters()
+                .Where(u => u.Photos.Any(p => p.Id == photoId))
+                .FirstOrDefaultAsync();
         }
 
         public async Task<string> GetUserGender(string username)

@@ -22,16 +22,9 @@ namespace API.Data
         }
 
 
-        /// <summary>
-        ///     Provides likes between users
-        /// </summary>
+        public DbSet<Photo> Photos { get; set; }
         public DbSet<UserLike> Likes { get; set; }
-
-        /// <summary>
-        ///     Provides messages between users
-        /// </summary>
         public DbSet<Message> Messages { get; set; }
-
         public DbSet<Group> Groups { get; set; }
         public DbSet<Connection> Connections { get; set; }
 
@@ -53,7 +46,7 @@ namespace API.Data
 
 
             builder.Entity<UserLike>()
-                .HasKey(k => new {k.SourceUserId, k.LikedUserId});
+                .HasKey(k => new { k.SourceUserId, k.LikedUserId });
 
             builder.Entity<UserLike>()
                 .HasOne(s => s.SourceUser)
@@ -77,6 +70,7 @@ namespace API.Data
                 .WithMany(m => m.MessagesSent)
                 .OnDelete(DeleteBehavior.Restrict);
 
+            builder.Entity<Photo>().HasQueryFilter(p => p.IsApproved);
             builder.ApplyUtcDateTimeConverter();
         }
     }
@@ -99,20 +93,20 @@ namespace API.Data
 
         public static bool IsUtc(this IMutableProperty property)
         {
-            return (bool?) property.FindAnnotation(IsUtcAnnotation)?.Value ?? true;
+            return (bool?)property.FindAnnotation(IsUtcAnnotation)?.Value ?? true;
         }
 
         public static void ApplyUtcDateTimeConverter(this ModelBuilder builder)
         {
             foreach (var entityType in builder.Model.GetEntityTypes())
-            foreach (var property in entityType.GetProperties())
-            {
-                if (!property.IsUtc()) continue;
+                foreach (var property in entityType.GetProperties())
+                {
+                    if (!property.IsUtc()) continue;
 
-                if (property.ClrType == typeof(DateTime)) property.SetValueConverter(UtcConverter);
+                    if (property.ClrType == typeof(DateTime)) property.SetValueConverter(UtcConverter);
 
-                if (property.ClrType == typeof(DateTime?)) property.SetValueConverter(UtcNullableConverter);
-            }
+                    if (property.ClrType == typeof(DateTime?)) property.SetValueConverter(UtcNullableConverter);
+                }
         }
     }
 }
