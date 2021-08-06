@@ -35,7 +35,7 @@ namespace API.Extensions
             // For SQLite db connection (_config=appsettings.Development.json)
             services.AddDbContext<DataContext>(options =>
             {
-                options.UseSqlite(config.GetConnectionString("DefaultConnection"));
+                options.UseNpgsql(config.GetConnectionString("DefaultConnection"));
             });
 
             // Register the Swagger generator, defining 1 or more Swagger documents
