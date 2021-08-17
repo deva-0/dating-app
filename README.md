@@ -3,4 +3,4 @@ This is a dating app created with ASP.NET Core v5, Entity Framework Core, Angula
 # Deployment
 Live demo available at: https://dating-app-example.herokuapp.com/
 # API documentation 
-Available via Swagger UI at /swagger
+Available via Swagger UI at https://dating-app-example.herokuapp.com/swagger
